@@ -4,3 +4,112 @@
 * {
     margin: 0;
 }
+
+body {
+    font-family: "Permanent Marker", cursive;
+}
+
+.main_container {
+    display: block;
+    width: 100%;
+}
+
+.box {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 368px;
+    height: 80px;
+    margin: 100px auto;
+    background-color: #3b3b3b;
+    border-radius: 8px;
+    border: 1px solid #000000;
+}
+
+.logo {
+    display: block;
+    width: 120px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.logo h1,
+.logo p {
+    color: #ffffff;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.logo h1 {
+    font-size: 11px;
+}
+
+.logo p {
+    font-size: 10px;
+}
+
+.input_fader {
+    display: block;
+    width: 150px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.input_fader label {
+    display: block;
+    font-size: 10px;
+    color: #ffffff;
+}
+
+.monitor {
+    display: block;
+    width: 80px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.screen {
+    display: block;
+    background-color: #ffd900;
+    border: 2px solid #000000;
+    margin-bottom: 5px;
+    border-radius: 2px;
+}
+
+#bpm_value {
+    font-family: "Audiowide", cursive;
+    font-size: 18px;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.buttons {
+    display: block;
+    text-align: center;
+}
+
+.buttons button {
+    height: 20px;
+    width: 25px;
+    color: #000000;
+    font-size: 12px;
+    text-align: center !important;
+    border-radius: 2px;
+    border: 1px solid #000000;
+}
+
+#play {
+    margin-right: 10px;
+}
+
+#stop {
+    font-size: 8px;
+    position: relative;
+    top: -2px;
+}
+
+#stopIcon {
+    position: relative;
+    top: 1px;
+}
