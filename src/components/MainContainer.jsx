@@ -1,53 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { AiFillCaretRight } from "react-icons/ai";
 import { BsSliders } from "react-icons/bs";
 
 import Click_1 from "../audio/click_1.wav";
+import Click_2 from "../audio/click_2.wav";
 
 function MainContainer() {
 
     //-------------------STATES_&_VARIABLES--------------------
 
-    const [bpm, setBpm] = useState("100");
-    const [on, setOn] = useState(false);
-    const [mill, setMill] = useState(600);
+    const [rhythm, setRhythm] = useState({
+        playing: false,
+        bpm: 100,
+        counter: 4
+    })
 
     let click1 = new Audio(Click_1);
+    let click2 = new Audio(Click_2);
+
+    var player = useRef(null);
 
     //-------------------FUNCTIONS--------------------
 
-    const handleChange = e => {
+    const handleBpmChange = e => {
         e.preventDefault();
-        setBpm(e.target.value);
-        setMill(60000 / bpm);
+        if (rhythm.playing) {
+            clearInterval(player.current);
+            setRhythm({...rhythm, bpm: e.target.value});
+            player.current = setInterval(
+                () => {
+                    if (rhythm.counter % 4 === 0) {
+                        click1.play();
+                    } else {
+                        click2.play();
+                    };
+                    setRhythm({...rhythm, counter: rhythm.counter++});
+                }, 60000 / rhythm.bpm
+            );
+        } else {
+            setRhythm({...rhythm, bpm: e.target.value});
+        };
     };
 
     const start = e => {
         e.preventDefault();
-        setOn(true);
-    }
+        if (!rhythm.playing) {
+            setRhythm({...rhythm, playing: true});
+            clearInterval(player.current);
+            player.current = setInterval(
+                () => {
+                    if (rhythm.counter % 4 === 0) {
+                        click1.play();
+                    } else {
+                        click2.play();
+                    };
+                    setRhythm({...rhythm, counter: rhythm.counter++});
+                }, 60000 / rhythm.bpm
+            );
+        };
+    };
 
     const stop = e => {
         e.preventDefault();
-        setOn(false);
+        setRhythm({...rhythm, counter: 4, playing: false});
+        clearInterval(player.current);
     };
-
-    /*function player(state) {
-        if (state) {
-            setInterval(function() {click1.play()}, mill);
-        } else {
-            setInterval(function() {click1.play()}, 100);
-        }
-    };*/
-
-    useEffect(() => {
-        if (on) {
-            var player = setInterval(function() {click1.play()}, mill);
-        } else {
-            clearInterval(player);
-        }
-        // eslint-disable-next-line
-    }, [on]);
 
     //-------------------RETURN--------------------
 
@@ -60,11 +77,11 @@ function MainContainer() {
                 </div>
                 <div className="input_fader">
                     <label htmlFor="bpm">BPM</label>
-                    <input type="range" name="bpm" value={bpm} min="40" max="300" step="1" id="bpm_fader" onChange={handleChange} />
+                    <input type="range" name="bpm" value={rhythm.bpm} min="40" max="300" step="1" id="bpm_fader" onChange={handleBpmChange} />
                 </div>
                 <div className="monitor">
                     <div className="screen">
-                        <h1 id="bpm_value">{bpm}</h1>
+                        <h1 id="bpm_value">{rhythm.bpm}</h1>
                     </div>
                     <div className="buttons">
                         <button id="play" onClick={start}><AiFillCaretRight /></button>
