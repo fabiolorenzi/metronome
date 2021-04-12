@@ -24,7 +24,7 @@ function MainContainer() {
 
     const handleBpmChange = e => {
         e.preventDefault();
-        if (rhythm.playing) {
+        if (player.current != null) {
             clearInterval(player.current);
             setRhythm({...rhythm, bpm: e.target.value});
             player.current = setInterval(
