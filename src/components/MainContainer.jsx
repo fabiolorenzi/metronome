@@ -39,6 +39,7 @@ function MainContainer() {
             );
         } else {
             setRhythm({...rhythm, bpm: e.target.value});
+            player.current = null;
         };
     };
 
@@ -64,6 +65,7 @@ function MainContainer() {
         e.preventDefault();
         setRhythm({...rhythm, counter: 4, playing: false});
         clearInterval(player.current);
+        player.current = null;
     };
 
     //-------------------RETURN--------------------
