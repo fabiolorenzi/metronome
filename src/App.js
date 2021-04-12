@@ -7,7 +7,7 @@ function App() {
     return(
         <div className="app_container">
             <Switch>
-                <Route exact path="/" component={MainContainer} />
+                <Route exact path="/metronome" component={MainContainer} />
             </Switch>
         </div>
     );
